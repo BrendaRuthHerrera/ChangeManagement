@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+  text-decoration: none;
+}
+.navbar {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: end;
+    top: 0%;
+    background-color: rgba(0, 0, 0, 0.212);
+}
+
+a {
+    margin: 1rem;
+    color: white;
+    text-align: end;
+    font-size: 3vh;
+}
