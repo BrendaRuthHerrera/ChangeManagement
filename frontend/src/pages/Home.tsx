@@ -24,8 +24,7 @@ const Home = () => {
         <main>
             <Navbar/>
             <body>
-                <div className='Título'>
-                <h1>Change Management</h1>
+                <div className='Título'><h1>Changes Management</h1>
                 </div>
                 <Portal links={links} />
             </body>
