@@ -9,7 +9,7 @@
     
 
 h1 {
-    background-color: rgb(18, 177, 177);
+    background-color: rgb(33, 6, 153);
     color: white;
     text-align: center;
     font-size: 1.5rem;
@@ -20,11 +20,13 @@ h1 {
     padding: 5px;
 }
 
-.Título {
-    margin-top: 5rem;
+.portal-aplicaciones {
+    margin-top: 15vh;
     display: flex;
     justify-content: center;
     width: 100%;
+    font-size: 1.5rem;
+    color: rgb(0, 0, 0);
 }
 
 h1:hover {
@@ -33,7 +35,7 @@ h1:hover {
    
   
 body {
-    background-color: rgb(5, 5, 26);
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -49,22 +51,28 @@ body {
         flex-wrap: wrap;
         width: 70%;
         align-items: center;
-        margin-top:2% ;
+        margin-top:4vh ;
     }
 
     .box {
-        background-color: aliceblue;
+        background-color:#001689;
         aspect-ratio: 1/1; 
         width: 15%;
-        margin: 1rem;
-        border-radius: 10px;
+        margin: 0.5rem;
+        border-radius: 8px;
         transition: transform 0.3s;
-        font-size: 1rem;
-        
+        font-size: 3vh;
+        border: 2px solid #ffffff;
+        color: #ffffff;
+        position: relative;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
     }
 
     .box:hover{
         transform: scale(1.1);
+        background-color: #00a7e1;
     }
 
     @keyframes float {
@@ -90,5 +98,25 @@ body {
         100% { background-color: rgb(64, 113, 247); }
       }
     
+/* ------------Media Screens-----------------*/
 
- 
+      @media screen and (max-width: 768px) { 
+        .box {
+            width: 30%; 
+            margin: 0.25rem; 
+        }
+    }
+    
+    @media screen and (max-width: 480px) { 
+        .box {
+            width: 40%;
+            margin: 0.2rem; 
+            font-size: 2.3vh;
+        }
+
+        .portal-aplicaciones {
+            font-size:2.5vh;
+            width: 80%;
+            text-align: center;
+        }
+    }

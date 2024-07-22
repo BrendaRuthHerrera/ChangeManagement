@@ -1,20 +1,18 @@
 import '../styles/Navbar.css'
-export default function Navbar () {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
+export default function Navbar() {
     return (
-        
-<div className="navbar">
-    <div className="nav-item">
-        <a href="#home">Inicio</a>
-    </div>
-    <div className="nav-item">
-        <a href="#about">Acerca de</a>
-    </div>
-    <div className="nav-item">
-        <a href="#services">Servicios</a>
-    </div>
-    <div className="nav-item">
-        <a href="#contact">Contacto</a>
-    </div>
-</div>
+        <div className='navbar'>
+            <div className='logo'>
+                <h1>Changes Management</h1>
+            </div>
+            <div className="navbar-items">
+                <div className="icon">
+                    <FontAwesomeIcon icon={faBars} size='1x' />
+                </div>
+            </div>
+        </div>
     )
 }
