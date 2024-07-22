@@ -6,9 +6,77 @@
     color: #fff;
     padding: 15vh 0 5vh;
     border-top-left-radius: 125px;
-    font-size: xx-large;
-    line-height: 5vh;
+    font-size: 2vh;
     margin-top: 10vh;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
+
+.footer-content {
+   display: grid;
+   grid-template-columns: 1fr 2fr 1fr;
+    width: 90%;
+    align-items: center;
+    bottom: 0%;
+    justify-content: center;
+}
+
+
  
+.col {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    bottom: 0%;
+    margin-left: 10vh;
+    padding: 1vh;
+}
+
+#but {
+    width: 20vh;
+    height: 5vh;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+#but:hover {
+    background-color: #00a7e1 ;
+ justify-content: center;
+}
+
+/* ------------Media Screens-----------------*/
+
+@media screen and (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr; 
+        text-align: center; 
+    }
+
+    #but {
+        width: auto; 
+        height: auto; 
+    }
+
+    .Footer {
+        padding: 10vh 0 3vh; 
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1rem; 
+    }
+
+    .col {
+        margin: 0; 
+    }
+
+    .Footer {
+        padding: 8vh 0 2vh; 
+        font-size: 1.5vh; 
+    }
+}
