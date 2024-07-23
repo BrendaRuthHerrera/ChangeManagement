@@ -7,7 +7,12 @@
     font-weight: 400;
 }
 
-  
+main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+ 
 
 h1 {
     background-color: rgb(33, 6, 153);
@@ -19,6 +24,7 @@ h1 {
     animation: float 6s ease-in-out infinite;
     border-radius: 10px;
     padding: 5px;
+    box-sizing: border-box;
 }
 
 .portal-aplicaciones {
@@ -35,7 +41,8 @@ h1:hover {
 }
    
   
-body {
+.body {
+    width: 100%;
     background-color: #ffffff;
     display: flex;
     justify-content: center;
@@ -100,6 +107,13 @@ body {
       }
     
 /* ------------Media Screens-----------------*/
+
+@media screen and (max-width: 1024px) {
+    .box {
+        width: 20%;
+        font-size: 2.1vh;
+    }
+}
 
       @media screen and (max-width: 768px) { 
         .box {

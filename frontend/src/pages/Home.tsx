@@ -23,11 +23,11 @@ const Home = () => {
     return (
         <main>
             <Navbar/>
-            <body>
+            <div className='body'>
                 <div className='portal-aplicaciones'><h2>Portal de Aplicaciones</h2>
                 </div>
                 <Portal links={links} />
-            </body>
+            </div>
             <Footer/>
         </main>
     )
