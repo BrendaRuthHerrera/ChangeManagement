@@ -12,9 +12,9 @@ const Portal = ({ links }: { links: LinkData[] }) => {
     return(
       <div className="container">
       {links.map(link => (
-          <button key={link.id} className="box" onClick={() => { window.location.href = link.url }}>
-              {link.title}
-          </button>
+          <a key={link.id} href={link.url} className="box" target="_blank" rel="noopener noreferrer">
+          {link.title}
+      </a>
       ))}
   </div>
       
