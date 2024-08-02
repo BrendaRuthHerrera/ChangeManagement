@@ -1,8 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-
 dotenv.config();
-
 const sequelize = new Sequelize({
     dialect: 'mysql',
     host: process.env.DB_HOST,
@@ -10,7 +8,5 @@ const sequelize = new Sequelize({
     password: process.env.DB_NAME,
     database: process.env.DB_NAME,
 });
-
-
 export default sequelize;
-
+//# sourceMappingURL=db.js.map
