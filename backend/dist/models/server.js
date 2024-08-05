@@ -1,11 +1,21 @@
-import express from 'express';
-import connection from '../db/connection';
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const connection_1 = __importDefault(require("../db/connection"));
+const link_routes_1 = __importDefault(require("../routes/link.routes"));
+const default_routes_1 = __importDefault(require("../routes/default.routes"));
+const user_routes_1 = __importDefault(require("../routes/user.routes"));
 class Server {
     constructor() {
-        this.app = express();
+        this.app = (0, express_1.default)();
         this.port = process.env.PORT || '3000';
         this.listen();
         this.connectDB();
+        this.midlewares();
+        this.routes();
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -13,7 +23,7 @@ class Server {
         });
     }
     connectDB() {
-        connection.connect((err) => {
+        connection_1.default.connect((err) => {
             if (err) {
                 console.log(err);
             }
@@ -22,6 +32,13 @@ class Server {
             }
         });
     }
+    routes() {
+        this.app.use('/', default_routes_1.default);
+        this.app.use('/api/aplicaciones', link_routes_1.default);
+        this.app.use('/api/usuarios', user_routes_1.default);
+    }
+    midlewares() {
+        this.app.use(express_1.default.json());
+    }
 }
-export default Server;
-//# sourceMappingURL=server.js.map
+exports.default = Server;

@@ -1,14 +1,23 @@
 import '../styles/Navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Search from './search';
+import App from './interfaces';
 
-export default function Navbar() {
+const Navbar: React.FC = () => {
+
+    const handleSearchResults = (results: App[]) => {
+        console.log(results);
+    };
     return (
         <div className='navbar'>
-            <div className='logo'>
-                <h1>Changes Management</h1>
+            <div className='container-logo'>
+            <img className='logo' src="../../public/icons/Cirion-RGB_negativo-fondo-transp - copia.png" alt="Logo de la empresa"/>
             </div>
             <div className="navbar-items">
+                <div>
+                <Search onSearch={handleSearchResults} />
+                </div>
                 <div className="icon">
                     <FontAwesomeIcon icon={faBars} size='1x' />
                 </div>
@@ -16,3 +25,5 @@ export default function Navbar() {
         </div>
     )
 }
+
+export default Navbar;

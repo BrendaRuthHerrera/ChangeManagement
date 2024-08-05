@@ -6,6 +6,7 @@ interface LinkData {
   url:string;
   title: string;
   description: string;
+  logoUrl?: string;
 }
 
 const Portal = ({ links }: { links: LinkData[] }) => {

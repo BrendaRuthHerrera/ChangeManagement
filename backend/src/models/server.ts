@@ -1,5 +1,8 @@
 import express from 'express';
 import connection from '../db/connection';
+import routesAplicaciones from '../routes/link.routes';
+import routesDefault from '../routes/default.routes';
+import routesUser from '../routes/user.routes';
 
 class Server {
     private app: express.Application;
@@ -10,6 +13,8 @@ class Server {
         this.port = process.env.PORT || '3000';
         this.listen();
         this.connectDB();
+        this.midlewares();
+        this.routes();
     }
 
     listen() {
@@ -26,6 +31,16 @@ class Server {
                 console.log('Base de datos conectada exitosamente!!!')
             }
         })
+    }
+
+    routes() {
+        this.app.use('/', routesDefault);
+        this.app.use('/api/aplicaciones', routesAplicaciones);
+        this.app.use('/api/usuarios', routesUser)
+    }
+
+    midlewares() {
+        this.app.use(express.json());
     }
 }
 
