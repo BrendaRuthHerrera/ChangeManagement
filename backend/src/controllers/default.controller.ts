@@ -6,3 +6,4 @@ export const getDefault = (req: Request, res: Response) => {
         msg:'API funcionando'
     });
 }
+
