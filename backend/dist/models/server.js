@@ -8,6 +8,7 @@ const connection_1 = __importDefault(require("../db/connection"));
 const link_routes_1 = __importDefault(require("../routes/link.routes"));
 const default_routes_1 = __importDefault(require("../routes/default.routes"));
 const user_routes_1 = __importDefault(require("../routes/user.routes"));
+const cors_1 = __importDefault(require("cors"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -38,6 +39,7 @@ class Server {
         this.app.use('/api/usuarios', user_routes_1.default);
     }
     midlewares() {
+        this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
     }
 }

@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
     return (
         <div className='navbar'>
             <div className='container-logo'>
-            <img className='logo' src="../../public/icons/Cirion-RGB_negativo-fondo-transp - copia.png" alt="Logo de la empresa"/>
+            <img className='logo' src="../../icons/Cirion-RGB_negativo-fondo-transp - copia.png" alt="Logo de la empresa"/>
             </div>
             <div className="navbar-items">
                 <div>

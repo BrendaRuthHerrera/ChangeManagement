@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import Navbar from '../components/Navbar';
 import Portal from '../components/Portal';
@@ -14,7 +14,13 @@ const Home = () => {
     const [links, setLinks] =useState<LinkData[]>([]);
 
     useEffect(() => {
-        fetch('./links.json')
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:3001/api/aplicaciones', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
         .then(response => response.json())
         .then(data => setLinks(data))
         .catch(error => console.error('Error loading links:', error));

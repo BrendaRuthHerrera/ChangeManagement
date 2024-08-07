@@ -57,7 +57,7 @@ connection.query('SELECT * FROM usuarios WHERE nombre = ' + connection.escape(no
                         const token = jwt.sign({
                             nombre: nombre
                         }, process.env.SECRET_KEY!,{
-                            expiresIn:'9000,000'
+                            expiresIn:'1h'
                         })
 
                         res.json({

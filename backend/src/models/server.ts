@@ -3,6 +3,7 @@ import connection from '../db/connection';
 import routesAplicaciones from '../routes/link.routes';
 import routesDefault from '../routes/default.routes';
 import routesUser from '../routes/user.routes';
+import cors from 'cors';
 
 class Server {
     private app: express.Application;
@@ -40,6 +41,7 @@ class Server {
     }
 
     midlewares() {
+        this.app.use(cors());
         this.app.use(express.json());
     }
 }

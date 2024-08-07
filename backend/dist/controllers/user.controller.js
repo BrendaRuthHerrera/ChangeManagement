@@ -60,7 +60,7 @@ const loginUser = (req, res) => {
                             const token = jsonwebtoken_1.default.sign({
                                 nombre: nombre
                             }, process.env.SECRET_KEY, {
-                                expiresIn: '9000,000'
+                                expiresIn: '1h'
                             });
                             res.json({
                                 token,
