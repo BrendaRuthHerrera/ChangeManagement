@@ -128,3 +128,12 @@ text-decoration: underline;
   align-items: center;
   margin-right: 1.5rem;
 }
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

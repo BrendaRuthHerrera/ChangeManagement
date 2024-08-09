@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/Login.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export  default function Login() {
 
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [error, setError] = useState('');
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -17,7 +17,7 @@ export  default function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, nombre: username, password }),
+                body: JSON.stringify({ email, password }),
             });
 
             const data = await response.json();
@@ -27,9 +27,11 @@ export  default function Login() {
                 console.log('Login successful');
             } else {
                 console.error('Login failed:', data.msg);
+                setError(data.msg || 'Login failed');
             }
         } catch (error) {
             console.error('Error during login:', error);
+            setError('Ha ocurrido un error durante el inicio de sesión')
         }
     };
 
@@ -50,13 +52,7 @@ export  default function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder='Email'
                   />
-            
-                <input className='imput-login'
-                 type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder='Username'
-                  />
+    
                 
                 <input className='imput-login'
                  type="password" 
@@ -73,10 +69,11 @@ export  default function Login() {
                 <button type='submit'>Login</button>
 
                 <div className='register-link'>
-                    <p>Don't have an account <a href='#'>Register</a></p>
+                    <p>Don't have an account <Link to='/register'>Register</Link></p>
                 </div>
 
                 </div>
+                {error && <p className='error-message'>{error}</p>}
             </form>
         </div>
         </main>

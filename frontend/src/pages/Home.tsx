@@ -3,15 +3,22 @@ import '../styles/Home.css';
 import Navbar from '../components/Navbar';
 import Portal from '../components/Portal';
 import Footer from '../components/Footer';
-interface LinkData {
+import Search from '../components/search';
+
+interface App {
     id: number;
     url:string;
-    title: string;
-    description: string;
+    nombre: string;
+    descripcion: string;
   }
+  
 const Home = () => {
 
-    const [links, setLinks] =useState<LinkData[]>([]);
+    const [links, setLinks] =useState<App[]>([]);
+
+    const handleSearch = (results: App[]) => {
+        setLinks(results);
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -22,7 +29,7 @@ const Home = () => {
             },
         })
         .then(response => response.json())
-        .then(data => setLinks(data))
+        .then(data => setLinks(data.data || []))
         .catch(error => console.error('Error loading links:', error));
     }, []);
 
@@ -30,6 +37,7 @@ const Home = () => {
         <main>
             <Navbar/>
             <div className='body'>
+            <Search onSearch={handleSearch} />
                 <div className='portal-aplicaciones'><h2>Portal de Aplicaciones</h2>
                 </div>
                 <Portal links={links} />

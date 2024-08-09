@@ -11,7 +11,7 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = process.env.PORT || '3000';
+        this.port = process.env.PORT || '3001';
         this.listen();
         this.connectDB();
         this.midlewares();
@@ -41,7 +41,10 @@ class Server {
     }
 
     midlewares() {
-        this.app.use(cors());
+        this.app.use(cors({
+            origin: 'http://localhost:5173',
+            credentials: true,
+        }));
         this.app.use(express.json());
     }
 }

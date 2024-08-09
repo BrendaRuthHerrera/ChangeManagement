@@ -12,7 +12,7 @@ const cors_1 = __importDefault(require("cors"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || '3000';
+        this.port = process.env.PORT || '3001';
         this.listen();
         this.connectDB();
         this.midlewares();
@@ -39,7 +39,10 @@ class Server {
         this.app.use('/api/usuarios', user_routes_1.default);
     }
     midlewares() {
-        this.app.use((0, cors_1.default)());
+        this.app.use((0, cors_1.default)({
+            origin: 'http://localhost:5173',
+            credentials: true,
+        }));
         this.app.use(express_1.default.json());
     }
 }

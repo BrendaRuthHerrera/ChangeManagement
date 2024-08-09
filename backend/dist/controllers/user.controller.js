@@ -23,28 +23,44 @@ const validateEmail = (email) => {
 };
 const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { nombre, password, email } = req.body;
+    console.log("Received registration data:", { nombre, password, email });
     //Esto es la validación de email :3
     if (!email || !validateEmail(email)) {
+        console.log("Invalid email:", email);
         return res.status(400).json({ msg: 'Email is invalid' });
     }
-    const hashedPassword = yield bcrypt_1.default.hash(password, 10);
-    connection_1.default.query('INSERT INTO usuarios SET ?', { nombre: nombre, password: hashedPassword, email: email }, (err, data) => {
+    connection_1.default.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
-            console.log(err);
+            console.log("Error querying email:", err);
+            return res.status(500).json({ msg: 'Error al verificar el correo electrónico' });
         }
-        else {
-            res.json({
-                msg: 'Add Usuario',
-            });
+        if (Array.isArray(results) && results.length > 0) {
+            console.log("Email already registered:", email);
+            return res.status(400).json({ msg: 'El correo electronicó ya esta registrado' });
         }
-    });
+        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        console.log("Hashed password:", hashedPassword);
+        connection_1.default.query('INSERT INTO usuarios SET ?', { nombre: nombre, password: hashedPassword, email: email }, (err, data) => {
+            if (err) {
+                console.log("Error inserting user:", err);
+                return res.status(500).json({ msg: 'Error al registrar el usuario' });
+            }
+            else {
+                res.status(201).json({
+                    success: true,
+                    msg: 'Usuario registrado exitosamente'
+                });
+            }
+        });
+    }));
 });
 exports.addUser = addUser;
 const loginUser = (req, res) => {
-    const { nombre, password } = req.body;
-    connection_1.default.query('SELECT * FROM usuarios WHERE nombre = ' + connection_1.default.escape(nombre), (err, data) => {
+    const { email, password } = req.body;
+    console.log("Received login data:", { email, password });
+    connection_1.default.query('SELECT * FROM usuarios WHERE email = ' + connection_1.default.escape(email), (err, data) => {
         if (err) {
-            console.log(err);
+            console.log("Error querying email:", err);
         }
         else {
             if (Array.isArray(data) && data.length > 0) {
@@ -58,7 +74,7 @@ const loginUser = (req, res) => {
                         if (result) {
                             // Login exitoso genera el token
                             const token = jsonwebtoken_1.default.sign({
-                                nombre: nombre
+                                email: email
                             }, process.env.SECRET_KEY, {
                                 expiresIn: '1h'
                             });

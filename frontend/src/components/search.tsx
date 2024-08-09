@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import linkJSON from '../../public/links.json';
+import React, { useState, useEffect } from 'react';
 import App from './interfaces';
 import '../styles/Navbar.css';
+
 
 interface SearchProps {
     onSearch: (results: App[]) => void;
@@ -9,12 +9,27 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [allApps, setAllApps] = useState<App[]>([]);
+
+    useEffect(() => {
+
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:3001/api/aplicaciones', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+        .then(Response => Response.json())
+        .then(data => setAllApps(data.data || []))
+        .catch(error => console.error('Error loading apps:', error));
+    }, []);
 
     function searchApps(searchTerm: string): App[] {
-        const results: App[] = linkJSON.filter((app: App) =>
-            app.title.toLowerCase().includes(searchTerm.toLowerCase())
+        return allApps.filter((app: App) =>
+            app.nombre.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        return results;
+       
     }
 
     const handleSearch = () => {
