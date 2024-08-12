@@ -9,7 +9,8 @@
         "id": 2,
         "title": "Service Now",
         "url": "https://sacfs.service-now.com/now/nav/ui/classic/params/target/sn_chg_model_ui_landing.do",
-        "description": "Descripción"
+        "description": "Descripción",
+        "logoUrl": "/icons/62b459b44d5b68158481cb1a.png"
     },
     {
         "id": 3,

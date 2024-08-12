@@ -1,0 +1,139 @@
+/* Login.css */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+
+
+.main-login {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(15, 33, 190);
+    background: url('../../public/images/FondoCirion.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.wrapper {
+    width: 60%;
+    max-width: 400px; 
+    height: auto;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.wrapper h2 {
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.wrapper .input-box {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    padding: 20px 45px 20px 20px; 
+    font-size: 1rem;
+    outline: none;
+    color: #000000; 
+    margin-bottom: 1rem;
+}
+
+.wrapper .remember-forgot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin: 0 0.5rem 0 0.5rem;
+ 
+}
+
+.remember-forgot input[type='checkbox'] {
+  width: 16px; 
+  height: auto; 
+  margin-right: 0.2rem; 
+}
+
+.remember-forgot a {
+  color: #000000;
+  text-decoration: none;
+}
+
+.remember-forgot a:hover {
+  text-decoration: underline;
+}
+
+.wrapper button {
+  width: 100%;
+  height: 6vh;
+  background-color: rgb(15, 33, 190);
+  color: #fff;
+  outline: none;
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.wrapper .register-link {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.register-link p a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link p a:hover {
+text-decoration: underline;
+}
+
+.icon-login {
+  max-width: 100%; 
+  height: auto; 
+  width: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
