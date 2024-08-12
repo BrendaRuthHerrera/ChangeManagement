@@ -1,28 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 import Navbar from '../components/Navbar';
 import Portal from '../components/Portal';
 import Footer from '../components/Footer';
-interface LinkData {
+
+
+interface App {
     id: number;
     url:string;
-    title: string;
-    description: string;
+    nombre: string;
+    descripcion: string;
   }
+  
 const Home = () => {
 
-    const [links, setLinks] =useState<LinkData[]>([]);
+    const [links, setLinks] =useState<App[]>([]);
+
+    const [allApps, setAllApps] = useState<App[]>([]);
 
     useEffect(() => {
-        fetch('./links.json')
+        const token = localStorage.getItem('token');
+
+        fetch('http://localhost:3001/api/aplicaciones', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        })
         .then(response => response.json())
-        .then(data => setLinks(data))
+        .then(data => {
+            setLinks(data.data || []);
+            setAllApps(data.data || []);
+        })
         .catch(error => console.error('Error loading links:', error));
     }, []);
 
+    const handleSearch = (searchTerm: string) => {
+        const results = allApps.filter((app: App) =>
+            app.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setLinks(results);
+    };
+
     return (
         <main>
-            <Navbar/>
+            <Navbar  onSearch={handleSearch} />
             <div className='body'>
                 <div className='portal-aplicaciones'><h2>Portal de Aplicaciones</h2>
                 </div>
