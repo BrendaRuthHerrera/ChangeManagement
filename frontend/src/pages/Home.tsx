@@ -3,7 +3,7 @@ import '../styles/Home.css';
 import Navbar from '../components/Navbar';
 import Portal from '../components/Portal';
 import Footer from '../components/Footer';
-import Search from '../components/search';
+
 
 interface App {
     id: number;
@@ -16,9 +16,7 @@ const Home = () => {
 
     const [links, setLinks] =useState<App[]>([]);
 
-    const handleSearch = (results: App[]) => {
-        setLinks(results);
-    };
+    const [allApps, setAllApps] = useState<App[]>([]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -29,15 +27,24 @@ const Home = () => {
             },
         })
         .then(response => response.json())
-        .then(data => setLinks(data.data || []))
+        .then(data => {
+            setLinks(data.data || []);
+            setAllApps(data.data || []);
+        })
         .catch(error => console.error('Error loading links:', error));
     }, []);
 
+    const handleSearch = (searchTerm: string) => {
+        const results = allApps.filter((app: App) =>
+            app.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setLinks(results);
+    };
+
     return (
         <main>
-            <Navbar/>
+            <Navbar  onSearch={handleSearch} />
             <div className='body'>
-            <Search onSearch={handleSearch} />
                 <div className='portal-aplicaciones'><h2>Portal de Aplicaciones</h2>
                 </div>
                 <Portal links={links} />

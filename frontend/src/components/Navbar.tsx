@@ -2,13 +2,14 @@ import '../styles/Navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Search from './search';
-import App from './interfaces';
 
-const Navbar: React.FC = () => {
 
-    const handleSearchResults = (results: App[]) => {
-        console.log(results);
-    };
+interface NavbarProps {
+    onSearch: (searchTerm: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onSearch }) => {
+
     return (
         <div className='navbar'>
             <div className='container-logo'>
@@ -16,7 +17,7 @@ const Navbar: React.FC = () => {
             </div>
             <div className="navbar-items">
                 <div>
-                <Search onSearch={handleSearchResults} />
+                <Search onSearch={onSearch} />
                 </div>
                 <div className="icon">
                     <FontAwesomeIcon icon={faBars} size='1x' />

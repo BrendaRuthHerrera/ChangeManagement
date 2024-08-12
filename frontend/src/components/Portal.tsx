@@ -14,11 +14,6 @@ interface PortalProps {
 const Portal: React.FC<PortalProps> = ({ links }) => {
 
 
-  if (!Array.isArray(links)) {
-    console.error('links is not an array:', links);
-    return <div>No links available</div>;
-}
-
   return (
     <div className='portal'>
         {links.length > 0 ? (
