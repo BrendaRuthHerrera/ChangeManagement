@@ -45,7 +45,7 @@ const Home = () => {
         <main>
             <Navbar  onSearch={handleSearch} />
             <div className='body'>
-                <div className='portal-aplicaciones'><h2>Portal de Aplicaciones</h2>
+                <div className='portal-aplicaciones'><h2>Changes Management</h2>
                 </div>
                 <Portal links={links} />
             </div>

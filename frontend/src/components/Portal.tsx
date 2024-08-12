@@ -21,7 +21,6 @@ const Portal: React.FC<PortalProps> = ({ links }) => {
                 <div key={link.id} className='portal-item'>
                     <a href={link.url} target='_blank' rel='noopener noreferrer'>
                         <h3>{link.nombre}</h3>
-                        <p>{link.descripcion}</p>
                     </a>
                 </div>
             ))
