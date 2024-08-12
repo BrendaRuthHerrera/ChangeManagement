@@ -71,7 +71,7 @@ h1:hover {
     }
 
     .portal-item {
-        background-color:white;
+        background-color: rgb(33, 6, 153);
         aspect-ratio: 2/1; 
         width: 30%;
         margin: 0.5rem;

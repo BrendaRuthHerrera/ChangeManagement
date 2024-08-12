@@ -45,9 +45,19 @@
     font-weight: 500;
 }
 
-.wrapper .input-box {
+.wrapper .input-container {
     width: 100%;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .input-box input {
@@ -56,18 +66,18 @@
     background: transparent;
     border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 40px;
-    padding: 20px 45px 20px 20px; 
+    padding: 0 4.5rem 0 1.4rem; 
     font-size: 1rem;
     outline: none;
     color: #000000; 
-    margin-bottom: 1rem;
+    
 }
 
 .wrapper .remember-forgot {
   display: flex;
   justify-content: space-between;
   font-size: 1rem;
-  margin: 0 0.5rem 0 0.5rem;
+  margin: 0.5rem 0 0.5rem;
  
 }
 
@@ -80,6 +90,7 @@
 .remember-forgot a {
   color: #000000;
   text-decoration: none;
+  margin-left: 2rem;
 }
 
 .remember-forgot a:hover {
@@ -136,4 +147,13 @@ text-decoration: underline;
   display: flex;
   justify-content: center;
   text-align: center;
+}
+
+.icon {
+  position: absolute;
+  color: #0000007e;
+  right: 0px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  top: 1.5rem;
 }

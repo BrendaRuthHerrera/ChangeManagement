@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../styles/Login.css';
+import { faEnvelope, faEye, faEyeSlash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Register() {
     const[email, setEmail] = useState('');
@@ -8,6 +10,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -42,7 +45,8 @@ export default function Register() {
                     <img className='icon-login' src="../../public/icons/Cirion_Avatar-06.png" alt="Register Icon" />
                     <h2>Register</h2>
                 </div>
-                <div className='input-box'>
+                <div className='input-container'>
+                    <div className='input-box'>
                     <input
                         type="email"
                         value={email}
@@ -50,19 +54,27 @@ export default function Register() {
                         placeholder='Email'
                         required
                     />
+                    <FontAwesomeIcon icon={faEnvelope} className='icon'/>
+                    </div>
+                    <div className='input-box'>
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder='Username'
                     />
+                    <FontAwesomeIcon icon={faUser} className='icon' />
+                    </div>
+                    <div className='input-box'>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder='Password'
                         required
                     />
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className='icon' onClick={() => setShowPassword(!showPassword)} />
+                    </div>
                     <button type='submit'>Register</button>
                 </div>
                 {error && <p className="error-message">{error}</p>} 
