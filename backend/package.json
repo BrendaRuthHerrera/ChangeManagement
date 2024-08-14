@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.10.3",
+    "nodemailer": "^6.9.14",
     "nodemon": "^2.0.7",
     "sequelize": "^6.37.3",
     "typescript": "^5.5.4"
@@ -32,6 +33,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mysql": "^2.15.26",
     "@types/node": "^20.14.13",
+    "@types/nodemailer": "^6.4.15",
     "standard": "^17.1.0"
   },
   "eslintConfig": {

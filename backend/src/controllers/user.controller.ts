@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import connection from '../db/connection';
 import bcrypt from 'bcrypt';
 import  jwt from 'jsonwebtoken';
+import { sendEmail } from "../utils/mailer";
 
 // Esta es la funcion para validar el email <3
 const validateEmail = (email: string) => {
@@ -32,16 +33,21 @@ connection.query('SELECT * FROM usuarios WHERE email = ?', [email], async (err, 
     }
 
 
-
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log("Hashed password:", hashedPassword);
 
-connection.query('INSERT INTO usuarios SET ?', { nombre: nombre, password: hashedPassword, email: email }, (err, data) => {
+connection.query('INSERT INTO usuarios SET ?', { nombre: nombre, password: hashedPassword, email: email }, async (err, data) => {
 
     if(err) {
         console.log("Error inserting user:", err);
         return res.status(500).json({ msg: 'Error al registrar el usuario' });
     } else {
+        const verificationLink = `http://localhost:3000/verify-email?email=${email}&token=${hashedPassword}`; 
+        await sendEmail(email, 'Verifica tu correo electrónico', `
+            <h1>Hola, ${nombre}!</h1>
+            <p>Por favor verifica tu correo electrónico haciendo clic en el siguiente enlace:</p>
+            <a href="${verificationLink}">Verificar correo</a>
+        `);
         res.status(201).json({
             success: true,
             msg:'Usuario registrado exitosamente'
@@ -58,7 +64,7 @@ export const loginUser = (req: Request, res: Response) => {
 const { email, password } = req.body;
 console.log("Received login data:", { email, password });
 
-connection.query('SELECT * FROM usuarios WHERE email = ' + connection.escape(email), (err, data) => {
+connection.query('SELECT * FROM usuarios WHERE email = ?' + connection.escape(email), (err, data) => {
     if(err) {
         console.log("Error querying email:", err);
     } else {

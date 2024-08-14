@@ -16,6 +16,7 @@ exports.loginUser = exports.addUser = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const mailer_1 = require("../utils/mailer");
 // Esta es la funcion para validar el email <3
 const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,25 +41,31 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         console.log("Hashed password:", hashedPassword);
-        connection_1.default.query('INSERT INTO usuarios SET ?', { nombre: nombre, password: hashedPassword, email: email }, (err, data) => {
+        connection_1.default.query('INSERT INTO usuarios SET ?', { nombre: nombre, password: hashedPassword, email: email }, (err, data) => __awaiter(void 0, void 0, void 0, function* () {
             if (err) {
                 console.log("Error inserting user:", err);
                 return res.status(500).json({ msg: 'Error al registrar el usuario' });
             }
             else {
+                const verificationLink = `http://localhost:3000/verify-email?email=${email}&token=${hashedPassword}`;
+                yield (0, mailer_1.sendEmail)(email, 'Verifica tu correo electrónico', `
+            <h1>Hola, ${nombre}!</h1>
+            <p>Por favor verifica tu correo electrónico haciendo clic en el siguiente enlace:</p>
+            <a href="${verificationLink}">Verificar correo</a>
+        `);
                 res.status(201).json({
                     success: true,
                     msg: 'Usuario registrado exitosamente'
                 });
             }
-        });
+        }));
     }));
 });
 exports.addUser = addUser;
 const loginUser = (req, res) => {
     const { email, password } = req.body;
     console.log("Received login data:", { email, password });
-    connection_1.default.query('SELECT * FROM usuarios WHERE email = ' + connection_1.default.escape(email), (err, data) => {
+    connection_1.default.query('SELECT * FROM usuarios WHERE email = ?' + connection_1.default.escape(email), (err, data) => {
         if (err) {
             console.log("Error querying email:", err);
         }
