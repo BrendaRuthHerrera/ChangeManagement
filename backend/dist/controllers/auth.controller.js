@@ -14,33 +14,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyEmail = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, token } = req.query;
-    connection_1.default.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!email || !token) {
+        return res.status(400).json({ msg: 'Faltan el correo electrónico o el token.' });
+    }
+    connection_1.default.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => {
         if (err) {
-            return res.status(500).json({ msg: 'Error al verificar el correo electrónico' });
+            return res.status(500).json({ msg: 'Error al buscar el usuario en la base de datos' });
         }
         if (Array.isArray(results) && results.length > 0) {
             const user = results[0];
-            const isValidToken = yield bcrypt_1.default.compare(token, user.password);
-            if (isValidToken) {
+            if (user.verified) {
+                return res.status(400).json({ msg: 'El correo electrónico ya ha sido verificado.' });
+            }
+            jsonwebtoken_1.default.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+                if (err) {
+                    return res.status(400).json({ msg: 'Token inválido o expirado' });
+                }
                 connection_1.default.query('UPDATE usuarios SET verified = 1 WHERE email = ?', [email], (err) => {
                     if (err) {
-                        return res.status(500).json({ msg: 'Error al actualizar el usuario' });
+                        return res.status(500).json({ msg: 'Error al actualizar el estado de verificación' });
                     }
                     res.json({ msg: 'Correo electrónico verificado exitosamente' });
                 });
-            }
-            else {
-                res.status(400).json({ msg: 'Token inválido' });
-            }
+            });
         }
         else {
             res.status(404).json({ msg: 'Usuario no encontrado' });
         }
-    }));
+    });
 });
 exports.verifyEmail = verifyEmail;
