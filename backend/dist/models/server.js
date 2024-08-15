@@ -9,6 +9,8 @@ const link_routes_1 = __importDefault(require("../routes/link.routes"));
 const default_routes_1 = __importDefault(require("../routes/default.routes"));
 const user_routes_1 = __importDefault(require("../routes/user.routes"));
 const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 class Server {
     constructor() {
         this.app = (0, express_1.default)();

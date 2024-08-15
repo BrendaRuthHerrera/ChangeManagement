@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 import connection from '../db/connection';
 import bcrypt from 'bcrypt';
-import  jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 
 export const verifyEmail = async (req: Request, res: Response) => {

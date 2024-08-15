@@ -4,6 +4,9 @@ import routesAplicaciones from '../routes/link.routes';
 import routesDefault from '../routes/default.routes';
 import routesUser from '../routes/user.routes';
 import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 class Server {
     private app: express.Application;

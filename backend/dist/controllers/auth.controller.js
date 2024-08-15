@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyEmail = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, token } = req.query;
     connection_1.default.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => __awaiter(void 0, void 0, void 0, function* () {
