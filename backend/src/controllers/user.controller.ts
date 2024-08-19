@@ -36,7 +36,7 @@ connection.query('SELECT * FROM usuarios WHERE email = ?', [email], async (err, 
     }
 
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);  
     console.log("Hashed password:", hashedPassword);
 
     const verificationToken = jwt.sign({ email }, process.env.SECRET_KEY!, { expiresIn: '1h' });
@@ -93,6 +93,7 @@ connection.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, data) 
                             expiresIn:'1h'
                         })
 
+                        console.log('se recibe dato', token);
                         res.json({
                             token,
                         });

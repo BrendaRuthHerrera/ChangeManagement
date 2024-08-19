@@ -22,30 +22,46 @@ const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     if (!email || !token) {
         return res.status(400).json({ msg: 'Faltan el correo electrónico o el token.' });
     }
-    connection_1.default.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => {
-        if (err) {
-            return res.status(500).json({ msg: 'Error al buscar el usuario en la base de datos' });
+    try {
+        // Verificar el token JWT
+        const decoded = jsonwebtoken_1.default.verify(token, process.env.SECRET_KEY);
+        if (decoded.email !== email) {
+            return res.status(400).json({ msg: 'Token inválido para este correo electrónico.' });
         }
-        if (Array.isArray(results) && results.length > 0) {
-            const user = results[0];
-            if (user.verified) {
-                return res.status(400).json({ msg: 'El correo electrónico ya ha sido verificado.' });
+        // Consultar el usuario en la base de datos
+        connection_1.default.query('SELECT * FROM usuarios WHERE email = ?', [email], (err, results) => {
+            if (err) {
+                console.log('Error al buscar el usuario en la base de datos:', err);
+                return res.status(500).json({ msg: 'Error al buscar el usuario en la base de datos' });
             }
-            jsonwebtoken_1.default.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-                if (err) {
-                    return res.status(400).json({ msg: 'Token inválido o expirado' });
+            if (Array.isArray(results) && results.length > 0) {
+                const user = results[0];
+                // Verificar si el usuario ya está verificado
+                if (user.verified) {
+                    console.log("El correo electrónico ya ha sido verificado:", email);
+                    return res.status(400).json({ msg: 'El correo electrónico ya ha sido verificado.' });
                 }
-                connection_1.default.query('UPDATE usuarios SET verified = 1 WHERE email = ?', [email], (err) => {
+                // Actualizar el estado de verificación del usuario
+                connection_1.default.query('UPDATE usuarios SET verified = 1 WHERE email = ?', [email], (err, updateResults) => {
                     if (err) {
+                        console.log('Error al actualizar el estado de verificación:', err);
                         return res.status(500).json({ msg: 'Error al actualizar el estado de verificación' });
                     }
-                    res.json({ msg: 'Correo electrónico verificado exitosamente' });
+                    else {
+                        console.log('Usuario no encontrado:', email);
+                        return res.status(404).json({ msg: 'Usuario no encontrado' });
+                    }
                 });
-            });
-        }
-        else {
-            res.status(404).json({ msg: 'Usuario no encontrado' });
-        }
-    });
+            }
+            else {
+                console.log('Usuario no encontrado:', email);
+                return res.status(404).json({ msg: 'Usuario no encontrado' });
+            }
+        });
+    }
+    catch (err) {
+        console.log('Error al verificar el token:', err);
+        return res.status(400).json({ msg: 'Token inválido o expirado' });
+    }
 });
 exports.verifyEmail = verifyEmail;

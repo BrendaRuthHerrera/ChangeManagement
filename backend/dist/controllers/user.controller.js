@@ -85,6 +85,7 @@ const loginUser = (req, res) => {
                             }, process.env.SECRET_KEY, {
                                 expiresIn: '1h'
                             });
+                            console.log('se recibe dato', token);
                             res.json({
                                 token,
                             });

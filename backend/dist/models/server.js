@@ -10,6 +10,8 @@ const default_routes_1 = __importDefault(require("../routes/default.routes"));
 const user_routes_1 = __importDefault(require("../routes/user.routes"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const auth_controller_1 = require("../controllers/auth.controller");
+const morgan_1 = __importDefault(require("morgan"));
 dotenv_1.default.config();
 class Server {
     constructor() {
@@ -39,6 +41,7 @@ class Server {
         this.app.use('/', default_routes_1.default);
         this.app.use('/api/aplicaciones', link_routes_1.default);
         this.app.use('/api/usuarios', user_routes_1.default);
+        this.app.use('/api/verify-email', auth_controller_1.verifyEmail);
     }
     midlewares() {
         this.app.use((0, cors_1.default)({
@@ -46,6 +49,7 @@ class Server {
             credentials: true,
         }));
         this.app.use(express_1.default.json());
+        this.app.use((0, morgan_1.default)('dev'));
     }
 }
 exports.default = Server;

@@ -5,6 +5,8 @@ import routesDefault from '../routes/default.routes';
 import routesUser from '../routes/user.routes';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { verifyEmail } from '../controllers/auth.controller';
+import morgan from 'morgan';
 dotenv.config();
 
 
@@ -40,7 +42,8 @@ class Server {
     routes() {
         this.app.use('/', routesDefault);
         this.app.use('/api/aplicaciones', routesAplicaciones);
-        this.app.use('/api/usuarios', routesUser)
+        this.app.use('/api/usuarios', routesUser);
+        this.app.use('/api/verify-email', verifyEmail);
     }
 
     midlewares() {
@@ -49,6 +52,7 @@ class Server {
             credentials: true,
         }));
         this.app.use(express.json());
+        this.app.use(morgan('dev'));
     }
 }
 

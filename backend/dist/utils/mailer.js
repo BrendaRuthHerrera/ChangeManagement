@@ -16,9 +16,6 @@ exports.sendEmail = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-console.log('EMAIL_HOST:', process.env.EMAIL_HOST);
-console.log('EMAIL_USER:', process.env.EMAIL_USER);
-console.log('EMAIL_PASS:', process.env.EMAIL_PASS);
 const transporter = nodemailer_1.default.createTransport({
     host: process.env.EMAIL_HOST,
     port: 587,
